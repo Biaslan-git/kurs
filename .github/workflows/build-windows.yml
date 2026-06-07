@@ -21,13 +21,11 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: |
-          pip install PyQt6 python-docx pyinstaller
+        run: pip install PyQt6 python-docx pyinstaller
 
       - name: Build EXE
         working-directory: src
-        run: |
-          pyinstaller --onefile --windowed --name="Certificate_System" --hidden-import=database --hidden-import=gui_addresses --hidden-import=gui_residents --hidden-import=gui_registration --hidden-import=gui_certificate main.py
+        run: pyinstaller --onefile --windowed --name="Certificate_System" --additional-hooks-dir=. --paths=. main.py
 
       - name: Upload EXE as artifact
         uses: actions/upload-artifact@v4
