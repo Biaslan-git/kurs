@@ -6,6 +6,7 @@
 
 import sqlite3
 import os
+import sys
 from datetime import datetime
 
 
@@ -15,8 +16,12 @@ class Database:
     def __init__(self, db_path=None):
         """Инициализация подключения к БД"""
         if db_path is None:
-            # Путь к БД в папке database
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            # Для .exe — рядом с исполняемым файлом
+            # Для обычного запуска — в папке database
+            if getattr(sys, 'frozen', False):
+                base_dir = os.path.dirname(sys.executable)
+            else:
+                base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             db_dir = os.path.join(base_dir, 'database')
             os.makedirs(db_dir, exist_ok=True)
             db_path = os.path.join(db_dir, 'certificates.db')
