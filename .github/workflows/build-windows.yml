@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -25,8 +28,19 @@ jobs:
         run: |
           pyinstaller --onefile --windowed --name="Certificate_System" src/main.py
 
-      - name: Upload EXE
+      - name: Upload EXE as artifact
         uses: actions/upload-artifact@v4
         with:
           name: Certificate_System_Windows
           path: dist/Certificate_System.exe
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Release v1.0.${{ github.run_number }}
+          files: dist/Certificate_System.exe
+          body: |
+            Система справок о составе семьи
+
+            Скачайте Certificate_System.exe и запустите на Windows.
