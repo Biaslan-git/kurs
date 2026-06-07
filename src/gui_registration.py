@@ -15,6 +15,12 @@ class RegistrationWidget(QWidget):
         self.go_back = go_back
         self.selected_address_id = None
         self.build()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:
+            self.register()
+        else:
+            super().keyPressEvent(event)
     
     def build(self):
         layout = QVBoxLayout(self)

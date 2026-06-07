@@ -14,6 +14,15 @@ class AddressesWidget(QWidget):
         self.go_back = go_back
         self.selected_id = None
         self.build()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:
+            if self.selected_id:
+                self.update()
+            else:
+                self.add()
+        else:
+            super().keyPressEvent(event)
     
     def build(self):
         layout = QVBoxLayout(self)
