@@ -25,21 +25,22 @@ jobs:
           pip install PyQt6 python-docx pyinstaller
 
       - name: Build EXE
+        working-directory: src
         run: |
-          pyinstaller --onefile --windowed --name="Certificate_System" --add-data "src;src" --hidden-import=database --hidden-import=gui_addresses --hidden-import=gui_residents --hidden-import=gui_registration --hidden-import=gui_certificate src/main.py
+          pyinstaller --onefile --windowed --name="Certificate_System" --hidden-import=database --hidden-import=gui_addresses --hidden-import=gui_residents --hidden-import=gui_registration --hidden-import=gui_certificate main.py
 
       - name: Upload EXE as artifact
         uses: actions/upload-artifact@v4
         with:
           name: Certificate_System_Windows
-          path: dist/Certificate_System.exe
+          path: src/dist/Certificate_System.exe
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0.${{ github.run_number }}
           name: Release v1.0.${{ github.run_number }}
-          files: dist/Certificate_System.exe
+          files: src/dist/Certificate_System.exe
           body: |
             Система справок о составе семьи
 
