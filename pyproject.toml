@@ -1,0 +1,9 @@
+[project]
+name = "certificate-system"
+version = "1.0.0"
+description = "Система подготовки справок о составе семьи"
+requires-python = ">=3.8"
+dependencies = [
+    "PyQt6>=6.6.0",
+    "python-docx>=1.1.2",
+]
