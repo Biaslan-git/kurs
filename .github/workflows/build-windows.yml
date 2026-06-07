@@ -26,7 +26,7 @@ jobs:
 
       - name: Build EXE
         run: |
-          pyinstaller --onefile --windowed --name="Certificate_System" src/main.py
+          pyinstaller --onefile --windowed --name="Certificate_System" --add-data "src;src" --hidden-import=database --hidden-import=gui_addresses --hidden-import=gui_residents --hidden-import=gui_registration --hidden-import=gui_certificate src/main.py
 
       - name: Upload EXE as artifact
         uses: actions/upload-artifact@v4
